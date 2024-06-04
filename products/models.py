@@ -22,12 +22,13 @@ class Category(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=150, verbose_name='Наименование товара')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория')
-    photo = models.ImageField(upload_to='catalog/', **NULLABLE, verbose_name='Изображение')
+    photo = models.ImageField(upload_to='catalog/', verbose_name='Изображение', **NULLABLE)
     price = models.FloatField(default=0, verbose_name='Цена за штуку')
-    overview = models.TextField(**NULLABLE, verbose_name='Описание')
+    overview = models.TextField(verbose_name='Описание', **NULLABLE)
     created = models.DateTimeField(auto_now_add=True)
 
-    manager = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='пользователь')
+    manager = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL,
+                                verbose_name='пользователь', **NULLABLE)
     is_published = models.BooleanField(default=False, verbose_name='статус публикации')
 
 
@@ -35,8 +36,8 @@ class Product(models.Model):
         return f'{self.name} ({self.price})'
 
     class Meta:
-        verbose_name = 'товар'
-        verbose_name_plural = 'товары'
+        verbose_name = 'Товар'
+        verbose_name_plural = 'Товары'
         ordering = ('price',)
 
 
