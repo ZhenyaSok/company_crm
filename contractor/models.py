@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 from contractor.utils import COUNTRIES
 from products.models import Product
@@ -65,8 +64,8 @@ class Account(models.Model):
     kpp = models.PositiveIntegerField(verbose_name="КПП банка")
 
     class Meta:
-        verbose_name = "Account"
-        verbose_name_plural = "Accounts"
+        verbose_name = "Счет"
+        verbose_name_plural = "Счета"
         db_table = "accounts"
 
 
@@ -87,11 +86,9 @@ class Contractor(models.Model):
     name = models.CharField(max_length=150, verbose_name="Название контрагента")
     email = models.EmailField(verbose_name="Почта", unique=True)
     address = models.ForeignKey("Address", on_delete=models.CASCADE, **NULLABLE)
-    bank_account = models.ForeignKey(
-        "Account",
-        on_delete=models.CASCADE,
-        verbose_name="номер счета", default="не назначен")
-    products = models.ManyToManyField(Product, verbose_name='Продукт')
+    bank_account = models.ForeignKey("Account", on_delete=models.CASCADE,
+                                     verbose_name="номер счета", **NULLABLE)
+    products = models.ManyToManyField(Product, verbose_name='Продукт', **NULLABLE)
     provider = models.ForeignKey('self', on_delete=models.PROTECT, verbose_name='Поставщик', **NULLABLE)
 
     levels = models.IntegerField(choices=Levels.choices, default=Levels.FACTORY, verbose_name='Уровень поставщика')
