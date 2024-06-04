@@ -27,9 +27,6 @@ class Product(models.Model):
     overview = models.TextField(**NULLABLE, verbose_name='Описание')
     created = models.DateTimeField(auto_now_add=True)
 
-
-
-
     manager = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='пользователь')
     is_published = models.BooleanField(default=False, verbose_name='статус публикации')
 

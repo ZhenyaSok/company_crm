@@ -12,4 +12,4 @@ class ProductAdmin(admin.ModelAdmin):
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     """Админ-панель товара"""
-    list_display = ('name', 'category', 'manager', 'price')
+    list_display = ('name', 'description', 'created_at')
