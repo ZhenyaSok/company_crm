@@ -30,7 +30,7 @@ class Product(models.Model):
 
 
 
-    contractor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='пользователь')
+    manager = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='пользователь')
     is_published = models.BooleanField(default=False, verbose_name='статус публикации')
 
 
