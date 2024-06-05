@@ -8,6 +8,8 @@ NULLABLE = {'null': True, 'blank': True}
 
 class Address(models.Model):
 
+    """Модель адреса контрагента"""
+
     email = models.EmailField(verbose_name="Почта", unique=True)
     country = models.CharField(max_length=3, choices=COUNTRIES, verbose_name="Страна", default="")
     city = models.CharField(max_length=150, verbose_name="Город", default="")
@@ -20,9 +22,6 @@ class Address(models.Model):
         verbose_name_plural = "Адреса"
         db_table = "address"
 
-
-    def __str__(self):
-        return self.country if self.country else ""
 
     def get_complete_address(self):
         address = ""
@@ -47,6 +46,10 @@ class Address(models.Model):
                 address += self.house_number
 
         return address
+
+    def __str__(self):
+        return self.get_complete_address()
+
 
 
 class Account(models.Model):
@@ -84,7 +87,7 @@ class Contractor(models.Model):
     """Модель контрагента (поставщика, компании)"""
 
     name = models.CharField(max_length=150, verbose_name="Название контрагента")
-    email = models.EmailField(verbose_name="Почта", unique=True)
+    email = models.EmailField(verbose_name="Почта")
     address = models.ForeignKey("Address", on_delete=models.CASCADE, **NULLABLE)
     bank_account = models.ForeignKey("Account", on_delete=models.CASCADE,
                                      verbose_name="номер счета", **NULLABLE)
@@ -95,15 +98,9 @@ class Contractor(models.Model):
     debt = models.DecimalField(decimal_places=2, max_digits=20, verbose_name='Задолженность', **NULLABLE)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
 
-    # def get_products(self):
-    #     """
-    #     Creates a string for the provider. This is required to display provider in Admin.
-    #     """
-    #     return ', '.join([products.name for products in self.products.all()[:2]])
-    #
-    # get_products.short_description = 'product'
 
     def products_names(self):
+        """Метод получения всех товаров для отражения названий продуктов в админ-панели"""
         return " %s" % (", ".join([product.name for product in self.products.all()]))
 
     products_names.short_description = 'products'
