@@ -95,6 +95,19 @@ class Contractor(models.Model):
     debt = models.DecimalField(decimal_places=2, max_digits=20, verbose_name='Задолженность', **NULLABLE)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
 
+    # def get_products(self):
+    #     """
+    #     Creates a string for the provider. This is required to display provider in Admin.
+    #     """
+    #     return ', '.join([products.name for products in self.products.all()[:2]])
+    #
+    # get_products.short_description = 'product'
+
+    def products_names(self):
+        return " %s" % (", ".join([product.name for product in self.products.all()]))
+
+    products_names.short_description = 'products'
+
     class Meta:
         verbose_name = "Контрагент"
         verbose_name_plural = "Контрагенты"

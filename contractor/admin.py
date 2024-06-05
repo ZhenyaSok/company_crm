@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from contractor import models
 from contractor.models import Account, Contractor, Address
 
 
@@ -12,7 +13,8 @@ class AccountAdmin(admin.ModelAdmin):
 @admin.register(Contractor)
 class ContractorAdmin(admin.ModelAdmin):
     """Админ-панель поставщик"""
-    list_display = ['name', 'address', 'debt',]
+    list_display = ['name', 'address', 'debt', 'provider', 'products_names']
+
 
 @admin.register(Address)
 class AddressAdmin(admin.ModelAdmin):
