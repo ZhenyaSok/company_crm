@@ -6,6 +6,7 @@ from products.models import Product
 class ContractorSerializer(serializers.ModelSerializer):
     address = serializers.CharField(source="address.get_complete_address", read_only=True)
     list_products = serializers.SerializerMethodField()
+    debt = serializers.CharField(read_only=True)
     read_only_fields = ('debt',)
 
     def get_list_products(self, contractor):
