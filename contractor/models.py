@@ -94,7 +94,8 @@ class Contractor(models.Model):
     products = models.ManyToManyField(Product, verbose_name='Продукт', **NULLABLE)
     provider = models.ForeignKey('self', on_delete=models.PROTECT, verbose_name='Поставщик', **NULLABLE)
 
-    levels = models.IntegerField(choices=Levels.choices, default=Levels.FACTORY, verbose_name='Уровень поставщика')
+    levels = models.IntegerField(choices=Levels.choices, default=Levels.FACTORY,
+                                 verbose_name='Уровень контрагента, как поставщика')
     debt = models.DecimalField(decimal_places=2, max_digits=20, verbose_name='Задолженность', **NULLABLE)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
 

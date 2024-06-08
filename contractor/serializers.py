@@ -16,7 +16,7 @@ class ContractorSerializer(serializers.ModelSerializer):
             a = f"{product.name} модель {product.model_product}, цена {product.price}, дата выхода {product.created_at}"
             list.append(a)
         return list
-        # return [product.name for product in Product.objects.filter(contractor=contractor)]
+        # return [product.json.name for product.json in Product.objects.filter(contractor=contractor)]
 
     class Meta:
         model = Contractor

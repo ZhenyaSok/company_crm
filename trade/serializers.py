@@ -1,18 +1,22 @@
-from rest_framework import serializers
+from rest_framework import serializers, fields
+from products.serializers import ProductSerializer
 
-from products.models import Product
 from trade.models import Trade
 
 
 class TradeSerializer(serializers.ModelSerializer):
-    # list_products = serializers.SerializerMethodField()
-    price = serializers.CharField(source="product.get_complete_address", read_only=True)
-    summ = serializers.FloatField(source="trade.all_summ", read_only=True)
-
-
-    def get_price(self, trade):
-        return [product.price for product in Product.objects.filter(trade=trade)]
+    product = ProductSerializer()
+    sum = fields.FloatField(required=False)
+    total_sum = fields.SerializerMethodField()
+    total_quantity = fields.SerializerMethodField()
 
     class Meta:
         model = Trade
-        fields = ("price", 'summ')
+        fields = ('id', 'product.json', 'quantity', 'sum', 'total_sum', 'total_quantity', 'created_timestamp')
+        read_only_fields = ('created_timestamp',)
+
+    def get_total_sum(self, obj):
+        return Trade.objects.filter(user_id=obj.user.id).total_sum()
+
+    def get_total_quantity(self, obj):
+        return Trade.objects.filter(user_id=obj.user.id).total_quantity()
