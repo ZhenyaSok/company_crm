@@ -16,9 +16,9 @@ class ContractorAdmin(admin.ModelAdmin):
     """Админ-панель поставщик"""
 
     list_display = ['name', 'address', 'bank_account', 'debt', 'provider', 'products_names']
-    fields = ['name', 'address', 'bank_account', ('provider', 'levels'), 'products', 'debt']  # TODO сделать задолжность чтоб считалась и не исправ
+    fields = ['name', 'address', 'bank_account', ('provider', 'levels'), 'products', 'debt']
     list_display_links = ('provider',)
-    list_filter = ['address']   # TODO решить с городами, создать базу на русском, что вставить в фильтр?
+    list_filter = ['address']
     search_fields = ['name']
     actions = ['clear_arrears']
 
