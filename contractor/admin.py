@@ -17,6 +17,7 @@ class ContractorAdmin(admin.ModelAdmin):
 
     list_display = ['name', 'address', 'bank_account', 'debt', 'provider', 'products_names']
     fields = ['name', 'address', 'bank_account', ('provider', 'levels'), 'products', 'debt']  # TODO сделать задолжность чтоб считалась и не исправ
+    list_display_links = ('provider',)
     list_filter = ['address']   # TODO решить с городами, создать базу на русском, что вставить в фильтр?
     search_fields = ['name']
     actions = ['clear_arrears']
@@ -24,6 +25,14 @@ class ContractorAdmin(admin.ModelAdmin):
     @admin.action(description="Очищение задолженности")
     def clear_arrears(modeladmin, request, queryset):
         queryset.update(arrears=0)
+
+    # def clear_arrears(self, request, queryset):
+    #     for item in queryset:
+    #         item.debt = 0
+    #         item.save()
+    #     self.message_user(request, f'Очищение задолженности перед поставщиком.')
+    #
+    # clear_arrears.short_description = 'Очистить задолженность'
 
 
 @admin.register(Address)
