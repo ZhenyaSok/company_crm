@@ -10,6 +10,10 @@ class Command(BaseCommand):
     loaddata_command = "loaddata"
     filenames = [
         "users",
+        # "category"
+        # "contractors",
+        # "product",
+        # "trades"
     ]
 
     def handle(self, *args, **options):
