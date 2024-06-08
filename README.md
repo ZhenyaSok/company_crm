@@ -5,6 +5,11 @@ Django 3+
 DRF 3.10+
 PostgreSQL 10+
 
+**<p>Contractor - Контрагенты, поставщик, адрес, счет</p>**
+**<p>Products - Товары, категории</p>**
+**<p>Trades - Сделка</p>**
+**<p>Users - Пользователь</p>**
+
 Задание:
 Создано веб-приложение, с API интерфейсом и админ-панелью.
 Создана база данных.
@@ -37,12 +42,7 @@ pip install -r requirements.txt
 python manage.py migrate
 
 4. Создать админа и модератора
-python manage.py csu python manage.py create_user
+python manage.py csu python manage.py create_user или create_custom_user
 
-6. Заполнить базы данных
-python manage.py loaddata users
-
-python manage.py loaddata contractor
-
-6. Запустить сервер
+5. Запустить сервер
 python manage.py runserver
