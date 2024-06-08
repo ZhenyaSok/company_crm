@@ -11,6 +11,8 @@ def document_path(self, filename):
 
 class Trade(models.Model):
 
+    """Модель сделки"""
+
     PREPAYMENT = 'Предоплата'
     POSTPAYD = 'Постоплата'
 
@@ -24,6 +26,7 @@ class Trade(models.Model):
     payment_method = models.CharField(max_length=85, choices=STATUS_CHOICES, verbose_name="Способ оплаты")
     document_file = models.FileField(upload_to=document_path, max_length=5000, **NULLABLE)
     payment_summ = models.PositiveIntegerField(verbose_name="Сумма оплаты")
+    created_at = models.DateTimeField(auto_now_add=True)
 
     is_approved = models.BooleanField(default=False, verbose_name='Одобрение руководителя')
 
@@ -33,3 +36,12 @@ class Trade(models.Model):
         return ([product.price for product in self.products.all()]) * self.quantity
 
     all_summ.short_description = 'Сумма'
+
+    def __str__(self):
+        self.payment_method
+
+
+    class Meta:
+        verbose_name = "Сделка"
+        verbose_name_plural = "Сделки"
+        db_table = "trades"
