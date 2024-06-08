@@ -7,7 +7,7 @@ class ContractorSerializer(serializers.ModelSerializer):
     address = serializers.CharField(source="address.get_complete_address", read_only=True)
     list_products = serializers.SerializerMethodField()
     debt = serializers.CharField(read_only=True)
-    read_only_fields = ('debt',)
+    read_only_fields = ('debt',)  # Нельзя редактировать поле задолженности со стороны API
 
     def get_list_products(self, contractor):
         """Метод выводит все товары которые может реализовать поставщик"""
