@@ -24,7 +24,7 @@ class ContractorAdmin(admin.ModelAdmin):
 
     @admin.action(description="Очищение задолженности")
     def clear_arrears(modeladmin, request, queryset):
-        queryset.update(arrears=0)
+        queryset.update(debt=0)
 
     # def clear_arrears(self, request, queryset):
     #     for item in queryset:
